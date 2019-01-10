@@ -5,9 +5,13 @@
 #ifndef GSERVER_CLIENTHANDLER_H
 #define GSERVER_CLIENTHANDLER_H
 
+#include <iostream>
+
+using namespace std;
 
 class ClientHandler {
-
+public:
+    virtual void handle(istream& sin, ostream& sout) = 0;
 };
 
 

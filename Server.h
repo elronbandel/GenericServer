@@ -6,7 +6,14 @@
 #define GR_SERVER_H
 
 
+#include "ClientHandler.h"
+#include "SocketStream.h"
+
 class Server {
+
+public:
+    virtual int open(int port, ClientHandler& cl) = 0;
+    virtual int stop() = 0;
 
 };
 

@@ -6,9 +6,18 @@
 #define GR_SERIALSERVER_H
 
 
-class SerialServer {
+#include <thread>
+#include "GenericServer.h"
 
+class SerialServer: public GenericServer {
+protected:
+    thread serverThread;
+public:
+    int open(int port, ClientHandler& handler) override;
+private:
+    static void startServerThread(SerialServer* server,int port, ClientHandler* handler);
 };
+
 
 
 #endif //GR_SERIALSERVER_H

@@ -1,14 +1,16 @@
 //
-// Created by elronbandel on 1/3/19.
+// Created by fatuity on 1/8/19.
 //
 
-#ifndef GSERVER_ISEARCHER_H
-#define GSERVER_ISEARCHER_H
-
-
+#ifndef ADVPROGPROJ2_ISEARCHER_H
+#define ADVPROGPROJ2_ISEARCHER_H
+#include "Searchable.h"
+template<class Solution>
 class ISearcher {
-
+public:
+    virtual Solution* search (Searchable<class T> searchable) = 0;
+    virtual int getNodesEvaluated() = 0;
 };
 
 
-#endif //GSERVER_ISEARCHER_H
+#endif //ADVPROGPROJ2_ISEARCHER_H

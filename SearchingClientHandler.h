@@ -1,0 +1,14 @@
+//
+// Created by fatuity on 1/13/19.
+//
+
+#ifndef ADVPROGPROJ2_SEARCHINGCLIENTHANDLER_H
+#define ADVPROGPROJ2_SEARCHINGCLIENTHANDLER_H
+
+
+class SearchingClientHandler {
+    
+};
+
+
+#endif //ADVPROGPROJ2_SEARCHINGCLIENTHANDLER_H

@@ -1,14 +1,24 @@
 //
-// Created by elronbandel on 1/3/19.
+// Created by fatuity on 1/7/19.
 //
 
-#ifndef GSERVER_SEARCHSOLVER_H
-#define GSERVER_SEARCHSOLVER_H
+#ifndef ADVPROGPROJ2_SEARCHSOLVER_H
+#define ADVPROGPROJ2_SEARCHSOLVER_H
 
-
-class SearchSolver {
-
+#include "Solver.h"
+#include "ISearcher.h"
+template <class Problem,class Solution>
+class SearchSolver : public Solver<Problem,Solution> {
+    ISearcher<Solution> *searcher;
+public:
+    SearchSolver(ISearcher<Solution> srchr){
+        searcher = srchr;
+    }
+    virtual Solution *solve(Problem *p) {
+        Solution *solution;
+        solution = searcher->search(p);
+        return solution;
+    }
 };
 
-
-#endif //GSERVER_SEARCHSOLVER_H
+#endif //ADVPROGPROJ2_SEARCHSOLVER_H

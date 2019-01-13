@@ -1,14 +1,22 @@
 //
-// Created by elronbandel on 1/3/19.
+// Created by fatuity on 1/8/19.
 //
 
-#ifndef GSERVER_SEARCHABLE_H
-#define GSERVER_SEARCHABLE_H
+#ifndef ADVPROGPROJ2_SEARCHABLE_H
+#define ADVPROGPROJ2_SEARCHABLE_H
 
+#include <list>
+#include "State.h"
 
+template<class T>
 class Searchable {
+public:
+    virtual State<T> *getInitialState() = 0;
 
+    virtual bool isGoalState(State<T> *state) = 0;
+
+    virtual std::list<State<T> *> getPossibleStates(State<T> *state) = 0;
 };
 
 
-#endif //GSERVER_SEARCHABLE_H
+#endif //ADVPROGPROJ2_SEARCHABLE_H

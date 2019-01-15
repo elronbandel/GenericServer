@@ -18,5 +18,6 @@ int ParallelServer::routine(ClientHandler& handler) {
     } else {
         stop(); //if there was no clients in the interval stop the running;
     }
+    setTimeOut(1);
     return 1;
 }

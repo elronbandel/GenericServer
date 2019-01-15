@@ -8,11 +8,11 @@
 #include <queue>
 #include "Searcher.h"
 
-template<class Solution>
-class BFS : public Searcher<Solution> {
+template<class Solution,class T>
+class BFS : public Searcher<Solution,T> {
     queue<State<T> *> q;
-    unordered_map<string, State<T> *> visited;
-    vector<State<T> *> path;
+    unordered_map<string*, State<T> *&> visited;
+    Solution* path;
 public:
     Solution *search(Searchable<T>* searchable) {
         State<T> *initState = searchable->getInitialState();
@@ -32,7 +32,7 @@ public:
             list<State<T> *> neighbours = searchable->getPossibleStates(current);
             for (State<T> *st : neighbours) {
                 st->setCameFrom(current);
-                if (visited.count((string)(*st)) == 0) {
+                if (visited.count((string*)(st)) == 0) {
                     visited.emplace(st->getType(), st);
                     q.push(st);
                 }

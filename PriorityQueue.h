@@ -20,7 +20,7 @@ public:
     State<T> *pop() {
         State<T> *top = pq.top();
         pq.pop();
-        container.erase(top->getType());
+        container.erase(*(top->getType()));
         return top;
     }
 
@@ -29,7 +29,7 @@ public:
     }
 
     bool contains(State<T> *state) {
-        return (bool) container.count(state->getType());
+        return (bool) container.count(*(state->getType()));
     }
 
 //    int size() {
@@ -41,7 +41,7 @@ public:
         State<T>* newState;
         *(newState) = *(state);
         pq.push(newState);
-        container.emplace(newState->getType(), newState);
+        container.emplace(*(newState->getType()), newState);
     }
 
     void setPriority(State<T> *state) {

@@ -14,20 +14,26 @@ template<class T>
 class MatrixCreator {
 public:
     // a function to create matrix
-    static MatrixGraph<T> create(vector<string> strMatrix, string init, string goal) {
+    static MatrixGraph<T>* create(vector<string> strMatrix, string init, string goal) {
         int initRow, initCol, goalRow, goalCol;
-        int rowSize, col;
+        int rowSize, col=0;
         int rowNum = strMatrix.size();
         unsigned long int comma;
         double inf = numeric_limits<double>::infinity();
         unordered_map<string, State<string> *> matrix;
-        string strCost, row, key;
+        string strCost, row, key,sub;
         State<string> *goalState = nullptr, *initState = nullptr;
         //find the initial state and the goal state values.
-        initRow = stoi(init.substr(comma = init.find(",")));
-        initCol = stoi(init.substr(comma, init.size() - 1));
-        goalRow = stoi(goal.substr(comma = goal.find(",")));
-        goalCol = stoi(goal.substr(comma, goal.size() - 1));
+        comma = init.find(",");
+        sub = init.substr(0,comma);
+        initRow = stoi(sub);
+        sub = init.substr(comma+1, init.size() - 1);
+        initCol = stoi(sub);
+        comma = goal.find(",");
+        sub = goal.substr(0,comma);
+        goalRow = stoi(sub);
+        sub = goal.substr(comma+1, goal.size() - 1);
+        goalCol = stoi(sub);
         //for each row
         for (int i = 0; i < rowNum; i++) {
             col = 0;
@@ -53,10 +59,11 @@ public:
                     state->setPathCost(stod(strCost));
                     col++;
                     matrix.emplace(key, state);
+                    strCost = "";
                 }
             }
         }
-        return MatrixGraph<T>(matrix, initState, goalState, col, rowNum);
+        return new MatrixGraph<T>(matrix, initState, goalState, col, rowNum);
     }
 //    static vector<vector<string>> split(vector<string> strMatrix){
 //        string strCost;

@@ -7,11 +7,12 @@
 
 #include "Solver.h"
 #include "ISearcher.h"
-template <class Problem,class Solution>
+#include <string>
+template <class Problem,class Solution,class T>
 class SearchSolver : public Solver<Problem,Solution> {
-    ISearcher<Solution> *searcher;
+    ISearcher<Solution,T> *searcher;
 public:
-    SearchSolver(ISearcher<Solution> srchr){
+    SearchSolver(ISearcher<Solution,T>* srchr){
         searcher = srchr;
     }
     virtual Solution *solve(Problem *p) {

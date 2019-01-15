@@ -5,10 +5,10 @@
 #ifndef ADVPROGPROJ2_ISEARCHER_H
 #define ADVPROGPROJ2_ISEARCHER_H
 #include "Searchable.h"
-template<class Solution>
+template<class Solution,class T>
 class ISearcher {
 public:
-    virtual Solution* search (Searchable<class T>* searchable) = 0;
+    virtual Solution* search (Searchable<T>* searchable) = 0;
     virtual int getNodesEvaluated() = 0;
 };
 

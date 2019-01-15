@@ -19,7 +19,7 @@ public:
         cameFrom = nullptr;
     }
 
-    State(T *type) {
+    explicit State(T *type) {
         t = type;
         cameFrom = nullptr;
     }
@@ -64,7 +64,7 @@ public:
         return pathCost;
     }
     explicit operator std::string() const{
-        return (std::string)t;
+        return (std::string)(*t);
     }
 };
 

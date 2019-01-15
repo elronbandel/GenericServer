@@ -9,21 +9,21 @@
 #include "ISearcher.h"
 #include "PriorityQueue.h"
 
-template<class Solution>
-class Searcher : public ISearcher<Solution> {
+template<class Solution,class T>
+class Searcher : public ISearcher<Solution,T> {
     int NodesEvaluated;
 protected:
-    PriorityQueue<class T> openList;
+    PriorityQueue<T> openList;
 
-    State<class T> popOpenList() {
+    State<T> popOpenList() {
         NodesEvaluated++;
         return openList.pop();
     }
     //tracing the path from beginning to goal;
-    vector<State<T>*> backtrace(State<T> *goal) {
-        vector<State<T>*> path;
+    Solution* backtrace(State<T> *goal) {
+        Solution* path;
         while (goal != nullptr) {
-            path.push_back(goal);
+            path->push_back(goal);
             goal = goal->getCameFrom();
         }
         return path;

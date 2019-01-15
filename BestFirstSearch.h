@@ -9,23 +9,23 @@
 #include "Searcher.h"
 #include "PriorityQueue.h"
 
-template<class Solution>
-class BestFirstSearch : public Searcher<Solution> {
+template<class Solution,class T>
+class BestFirstSearch : public Searcher<Solution,T> {
 public:
     BestFirstSearch() {}
 
     virtual Solution *search(Searchable<T>* searchable) {
         //get the initial state.
         this->openList.add(searchable->getInitialState());
-        unordered_set<T> closed;
-        vector<State<T> *> path;
+        unordered_set<string> closed;
+        Solution* path;
 
         while (!this->openList.empty()) {
             State<T> *state = this->openList.pop();
-            closed.emplace(state->getType());
+            closed.emplace(*(state->getType()));
             if (searchable->isGoalState(state)) {
                 path = this->backtrace(state);
-                return (Solution *) path;
+                return path;
             }
             //get the neighbours
             list<State<T> *> neighbours = searchable->getPossibleStates(state);
@@ -34,7 +34,7 @@ public:
                 //if neighbour is not in open and not in closed
                 double neighbourPathCost = st->getPathCost();
                 double neighbourCost = st->getCost();
-                if (!this->openList.contains(st) && closed.count(st->getType()) == 0) {
+                if (!this->openList.contains(st) && closed.count((string)(*st)) == 0) {
                     //set state as neighbour parent and add the neighbour to open.
                     st->setCameFrom(state);
                     this->openList.add(st);

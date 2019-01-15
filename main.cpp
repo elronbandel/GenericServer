@@ -7,7 +7,7 @@
 int main() {
     MirrorClientHandler handler;
     ParallelServer server;
-    server.open(5400, handler);
+   // server.open(5400, handler);
     cout << "server on thread" <<endl;
-    sleep(60);
+    //sleep(60);
 }

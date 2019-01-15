@@ -5,9 +5,12 @@
 #ifndef GSERVER_CACHEMANAGER_H
 #define GSERVER_CACHEMANAGER_H
 
-
+template<class Problem, class Solution>
 class CacheManager {
-
+public:
+    virtual bool isStored(Problem problem) = 0;
+    virtual Solution request(Problem problem) = 0;
+    virtual void store(Problem problem, Solution solution) = 0;
 };
 
 

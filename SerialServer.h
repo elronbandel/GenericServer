@@ -10,6 +10,8 @@
 #include "GenericServer.h"
 
 class SerialServer: public GenericServer {
+public:
+    SerialServer() = default;
 protected:
     thread serverThread;
 public:

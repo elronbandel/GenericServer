@@ -20,7 +20,7 @@ class FileCacheManager: public CacheManager<Problem, Solution> {
 
 public:
 
-    FileCacheManager(string filePath) {
+    explicit FileCacheManager(string filePath) {
         filedCachePath = filePath;
     }
 

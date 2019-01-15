@@ -14,6 +14,11 @@
 class ParallelServer : public SerialServer {
     map<thread::id, thread*> clientsThreads;
     int routine(ClientHandler& handler) override;
+public:
+    ParallelServer() = default;
+    explicit ParallelServer(int timeOutSec) {
+        setTimeOut(timeOutSec);
+    }
 
 protected:
     mutex mutx;
@@ -30,6 +35,7 @@ private:
         trd->detach();
         delete trd;
     }
+
 };
 
 

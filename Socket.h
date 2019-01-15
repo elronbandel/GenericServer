@@ -13,6 +13,7 @@ using namespace std;
 class Socket {
     int sock;
     bool mode;
+    bool isWouldBlock;
 
 public:
     Socket() {
@@ -25,6 +26,10 @@ public:
     void connect(string host, int port);
     void close();
     string read();
+    void setTimeOut(int val);
+    bool wouldBlock() {
+        return isWouldBlock;
+    }
     int read(char* buffer, int buffer_size);
     int write(const char* buffer, int buffer_size);
     void write(const string& msg);

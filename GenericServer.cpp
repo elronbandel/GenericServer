@@ -9,6 +9,9 @@ void GenericServer::start(int port) {
    server.create();
    server.bind(port);
    server.listen(maxClients);
+   if (timeOutSeconds > NO_TIMEOUT) {
+       server.setTimeOut(timeOutSeconds);
+   }
 }
 
 int GenericServer::open(int port, ClientHandler& handler) {
@@ -29,7 +32,7 @@ int GenericServer::routine(ClientHandler& handler) {
 }
 
 void GenericServer::notifyClientAccepted() {
-
+    clientsCounter++;
 }
 
 void GenericServer::serveOneClient(ClientHandler& handler) {
@@ -39,6 +42,7 @@ void GenericServer::serveOneClient(ClientHandler& handler) {
         SocketStream client(clientSocket);
         handler.handle(client, client);
         clientSocket.close();
+        clientsCounter--;
     }
 }
 

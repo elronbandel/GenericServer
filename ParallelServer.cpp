@@ -12,7 +12,11 @@ int ParallelServer::routine(ClientHandler& handler) {
     unique_lock<mutex> locker(mutx);
     if (!clientsThreads.empty())
         condition.wait(locker);
-    thread* clientThread = new thread(startClientThread, this, &handler);
-    clientsThreads[clientThread->get_id()] = clientThread;
+    if (!timeOut()) {
+        thread* clientThread = new thread(startClientThread, this, &handler);
+        clientsThreads[clientThread->get_id()] = clientThread;
+    } else {
+        stop(); //if there was no clients in the interval stop the running;
+    }
     return 1;
 }

@@ -28,6 +28,7 @@ void Socket::create() {
 Socket::Socket(int sockfd, bool mood) {
     sock = sockfd;
     mode = mood;
+    isWouldBlock = false;
 }
 void Socket::bind(int port) {
     if (sock != FAILED) {
@@ -55,8 +56,13 @@ Socket Socket::accept() {
         socklen_t cliAddrLen = sizeof(clientAdress);
         //look for clients
         int clientSocket = ::accept(sock, (struct sockaddr *) &clientAdress, &cliAddrLen);
-        if (clientSocket <= FAILED)
-            throw string("Error: failed to open client socket.");
+        if (clientSocket <= FAILED) {
+            if (errno == EWOULDBLOCK)	{
+                   isWouldBlock = true;
+            } else {
+                perror("Error: failed to open client socket.");
+            }
+        }
         return Socket(clientSocket, CLIENT);
     }
     return Socket();
@@ -85,7 +91,12 @@ int Socket::write(const char *buffer, int buffer_size) {
 void Socket::write(const string &msg) {
     write(msg.c_str(), msg.length());
 }
-
+void Socket::setTimeOut(int seconds) {
+    timeval timeout;
+    timeout.tv_sec = seconds;
+    timeout.tv_usec = 0;
+    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
+}
 void Socket::close() {
     if (sock != FAILED) {
         ::close(sock);

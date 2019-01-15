@@ -26,7 +26,10 @@ public:
 
     //interface functions:
 
-    bool isStored(Problem problem) override;
+    bool isStored(Problem problem) override {
+        localCache.find((string) problem) != localCache.end();
+    }
+
     Solution request(Problem problem) override {
         if (isStored(problem)) {
             return Solution(localCache[problem]);

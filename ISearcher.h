@@ -8,7 +8,7 @@
 template<class Solution>
 class ISearcher {
 public:
-    virtual Solution* search (Searchable<class T> searchable) = 0;
+    virtual Solution* search (Searchable<class T>* searchable) = 0;
     virtual int getNodesEvaluated() = 0;
 };
 

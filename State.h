@@ -6,6 +6,7 @@
 #define ADVPROGPROJ2_NODE_H
 
 #include <list>
+#include <string>
 
 template<class T>
 class State {
@@ -61,6 +62,9 @@ public:
 
     double getPathCost() const {
         return pathCost;
+    }
+    explicit operator std::string() const{
+        return (std::string)t;
     }
 };
 

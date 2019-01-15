@@ -19,9 +19,9 @@ class MatrixGraph : public Searchable<T> {
     State<T> *goal;
     State<T> *initialState;
     int height, width;
-    unordered_map<T, State<T> *> matrix;
+    unordered_map<string, State<T> *> matrix;
 public:
-    MatrixGraph(unordered_map<T, State<T> *> states, State<T> *init,
+    MatrixGraph(unordered_map<string, State<T> *> states, State<T> *init,
                 State<T> *goalState, int colNum, int rowNum) {
         matrix = states;
         initialState = init;
@@ -45,19 +45,27 @@ public:
         string key;
         if (row + 1 < height) {
             key = to_string(row + 1) + "," + to_string(col);
-            states.push_back(matrix[key]);
+            if(matrix[key]->getCost != "-1"){
+                states.push_back(matrix[key]);
+            }
         }
         if (row - 1 >= 0) {
             key = to_string(row - 1) + "," + to_string(col);
-            states.push_back(matrix[key]);
+            if(matrix[key]->getCost != "-1"){
+                states.push_back(matrix[key]);
+            }
         }
         if (col + 1 < width) {
             key = to_string(row) + "," + to_string(col + 1);
-            states.push_back(matrix[key]);
+            if(matrix[key]->getCost != "-1"){
+                states.push_back(matrix[key]);
+            }
         }
         if (col - 1 >= 0) {
             key = to_string(row) + "," + to_string(col - 1);
-            states.push_back(matrix[key]);
+            if(matrix[key]->getCost != "-1"){
+                states.push_back(matrix[key]);
+            }
         }
         return states;
     }

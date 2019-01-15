@@ -34,7 +34,7 @@ public:
         NodesEvaluated = 0;
     }
 
-    virtual Solution *search(Searchable<class T> searchable) = 0;
+    virtual Solution *search(Searchable<T>* searchable) = 0;
 
     virtual int getNodesEvaluated() {
         return NodesEvaluated;

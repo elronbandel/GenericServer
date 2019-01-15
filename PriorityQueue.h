@@ -15,7 +15,7 @@ using namespace std;
 template<class T>
 class PriorityQueue {
     priority_queue<State<T> *, vector<State<T> *>, greater<State<T> *>> pq;
-    unordered_map<T, State<T> *> container;
+    unordered_map<string, State<T> *> container;
 public:
     State<T> *pop() {
         State<T> *top = pq.top();
@@ -32,9 +32,9 @@ public:
         return (bool) container.count(state->getType());
     }
 
-    int size() {
-        return pq.size();
-    }
+//    int size() {
+//        return pq.size();
+//    }
 
     void add(State<T> *state) {
         //create a new state so that we wont change the actual cost of the original state

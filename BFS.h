@@ -11,28 +11,28 @@
 template<class Solution>
 class BFS : public Searcher<Solution> {
     queue<State<T> *> q;
-    unordered_map<T, State<T> *> visited;
+    unordered_map<string, State<T> *> visited;
     vector<State<T> *> path;
 public:
-    Solution *search(Searchable<T> searchable) {
-        State<T> *initState = searchable.getInitialState();
+    Solution *search(Searchable<T>* searchable) {
+        State<T> *initState = searchable->getInitialState();
         return bfs(initState, searchable);
     }
 
-    Solution *bfs(State<T> *current, Searchable<T> searchable) {
+    Solution *bfs(State<T> *current, Searchable<T>* searchable) {
         q.push(current);
         visited.emplace(current->getType(), current);
         while (!q.empty()) {
             current = q.front();
             q.pop();
-            if (searchable.isGoalState(current)) {
-                path = backtrace(current);
+            if (searchable->isGoalState(current)) {
+                path = this->backtrace(current);
                 return path;
             }
-            list<State<T> *> neighbours = searchable.getPossibleStates(current);
+            list<State<T> *> neighbours = searchable->getPossibleStates(current);
             for (State<T> *st : neighbours) {
                 st->setCameFrom(current);
-                if (visited.count(st) == 0) {
+                if (visited.count((string)(*st)) == 0) {
                     visited.emplace(st->getType(), st);
                     q.push(st);
                 }

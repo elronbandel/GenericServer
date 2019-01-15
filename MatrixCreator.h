@@ -20,7 +20,7 @@ public:
         int rowNum = strMatrix.size();
         unsigned long int comma;
         double inf = numeric_limits<double>::infinity();
-        unordered_map<T, State<string> *> matrix;
+        unordered_map<string, State<string> *> matrix;
         string strCost, row, key;
         State<string> *goalState = nullptr, *initState = nullptr;
         //find the initial state and the goal state values.
@@ -49,13 +49,8 @@ public:
                     } else if (col == goalCol && i == goalRow) {
                         goalState = state;
                     }
-                    if (strCost != "-1") {
-                        state->setCost(stod(strCost));
-                        state->setPathCost(stod(strCost));
-                    } else {
-                        state->setCost(inf);
-                        state->setPathCost(inf);
-                    }
+                    state->setCost(stod(strCost));
+                    state->setPathCost(stod(strCost));
                     col++;
                     matrix.emplace(key, state);
                 }

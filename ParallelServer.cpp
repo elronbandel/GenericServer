@@ -4,7 +4,7 @@
 
 #include "ParallelServer.h"
 
-void ParallelServer::startClientThread(ParallelServer *server, ClientHandler* handler) {
+void* ParallelServer::startClientThread(ParallelServer *server, ClientHandler* handler) {
     server->serveOneClient(*handler);
     server->terminate(this_thread::get_id());
 }
@@ -18,6 +18,9 @@ int ParallelServer::routine(ClientHandler& handler) {
     } else {
         stop(); //if there was no clients in the interval stop the running;
     }
-    setTimeOut(1);
+//    if (!firstRound)
+//        setTimeOut(2);
+//    else
+//        firstRound = false;
     return 1;
 }

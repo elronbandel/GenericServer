@@ -38,6 +38,7 @@ protected:
     void serveOneClient(ClientHandler& handler);
     void openServer(int port, ClientHandler& handler);
     virtual void notifyClientAccepted();
+    virtual void endRoutine();
 };
 
 

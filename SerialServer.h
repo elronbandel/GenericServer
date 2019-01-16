@@ -12,6 +12,9 @@
 class SerialServer: public GenericServer {
 public:
     SerialServer() = default;
+    SerialServer(int time) {
+        setTimeOut(time);
+    }
 protected:
     thread serverThread;
 public:

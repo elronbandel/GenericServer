@@ -25,6 +25,9 @@ void GenericServer::openServer(int port, ClientHandler& handler) {
         routine(handler);
     }
 }
+void GenericServer::endRoutine() {
+
+}
 
 int GenericServer::routine(ClientHandler& handler) {
     serveOneClient(handler);
@@ -37,13 +40,18 @@ void GenericServer::notifyClientAccepted() {
 
 void GenericServer::serveOneClient(ClientHandler& handler) {
     if (runing) {
-        Socket clientSocket = server.accept();
-        if (!clientSocket.wouldBlock()) {
-            notifyClientAccepted();
-            SocketStream client(clientSocket);
-            handler.handle(client, client);
-            clientSocket.close();
-            clientsCounter--;
+        if (!timeOut()) {
+            if (timeOutSeconds > NO_TIMEOUT) {
+                server.setTimeOut(timeOutSeconds);
+            }
+            Socket clientSocket = server.accept();
+            if (clientSocket.is_open()) {
+                notifyClientAccepted();
+                SocketStream client(clientSocket);
+                handler.handle(client, client);
+                clientSocket.close();
+                clientsCounter--;
+            }
         }
     }
 }

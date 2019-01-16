@@ -40,6 +40,9 @@ public:
     bool wouldBlock() {
         return isWouldBlock;
     }
+    bool is_open() {
+        return sock != -1;
+    }
     int read(char* buffer, int buffer_size);
     int write(const char* buffer, int buffer_size);
     void write(const string& msg);

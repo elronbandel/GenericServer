@@ -9,7 +9,6 @@
 #include "BFS.h"
 #include "DFS.h"
 #include "BestFirstSearch.h"
-#include "AStar.h"
 #include "ParallelServer.h"
 #include "SearchingClientHandler.h"
 #include "FileCacheManager.h"
@@ -17,7 +16,7 @@
 #include <cstdlib>
 #include <thread>
 
-#define SERVER_TIMOUT 30
+#define SERVER_TIMOUT 10
 
 using std::cout;
 using std::string;
@@ -25,18 +24,18 @@ using std::rand;
 
 
 int main(int argc, char* argv[]) {
-    if (argc == 2) {
-        int port = stoi(argv[1]);
+
         vector<State<string> *> path;
         string row;
         vector<string> rows;
-        EuklidianHuresticator huresticator;
-        ISearcher<vector<State<string> *>, string> *searcher = new AStar<vector<State<string> *>, string,EuklidianHuresticator>(huresticator);
+        ISearcher<vector<State<string> *>, string> *searcher = new DFS<vector<State<string> *>, string>();
         Solver<Searchable<string>, vector<State<string> *>>* solver =
                  new SearchSolver<Searchable<string>, vector<State<string> *>, string>(searcher);
         CacheManager<string,string>* cacheManager = new FileCacheManager<string,string>("cache.txt");
         SearchingClientHandler<Searchable<string>, vector<State<string> *>> handler(solver, cacheManager);
-        ParallelServer server(SERVER_TIMOUT); //start server with timeout of 30
+        SerialServer server; //start server with timeout of 30
+    if (argc == 2) {
+        int port = stoi(argv[1]);
         server.open(port, handler);
         server.mainThread().join();
     }

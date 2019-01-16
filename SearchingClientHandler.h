@@ -34,18 +34,19 @@ class SearchingClientHandler : public ClientHandler {
         pair<int, int> currState;
         pair<int, int> nextState;
         if (!solution.empty()) {
+            //running on states from last state to first
             for (int i = 1; i < size; i++) {
                 currState = getRowAndCol((string) *(solution.at(i - 1)));
                 nextState = getRowAndCol((string) *(solution.at(i)));
                 //for every state check what action needed.
                 if (currState.first < nextState.first) {
-                    path += "Down";
-                } else if (currState.first > nextState.first) {
                     path += "Up";
+                } else if (currState.first > nextState.first) {
+                    path += "Down";
                 } else if (currState.second < nextState.second) {
-                    path += "Right";
-                } else if (currState.second > nextState.second) {
                     path += "Left";
+                } else if (currState.second > nextState.second) {
+                    path += "Right";
                 }
                 if (i != size - 1) {
                     path += ",";
@@ -67,6 +68,7 @@ public:
         string matrixString;
         unsigned long int endOfRow;
         while (line != "end") {
+            line = "";
             //sin will override the info if there is info left in the line.
             if (line.empty()) {
                 sin >> line;

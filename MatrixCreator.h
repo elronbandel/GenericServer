@@ -43,6 +43,7 @@ public:
             if (row[rowSize - 1] != ',') {
                 row = row + ",";
             }
+            rowSize = row.size();
             //run for each char and combine it to a number of one column.
             for (int j = 0; j < rowSize; j++) {
                 if (row[j] != ',') {

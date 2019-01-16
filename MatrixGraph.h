@@ -45,6 +45,10 @@ public:
         return initialState;
     }
 
+    virtual State<T> *getGoalState() {
+        return goal;
+    }
+
     virtual bool isGoalState(State<T> *state) {
         return state == goal;
     }

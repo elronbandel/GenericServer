@@ -21,7 +21,6 @@ public:
     double operator () (const string& point) {
         return distance(stringToPair(point), goal);
     }
-    //setter for goal.
     void setGoal(const string& goal){
         this->goal = stringToPair(goal);
     }
@@ -61,6 +60,8 @@ public:
     }
 
     virtual Solution search(Searchable<T>* searchable) {
+        //set the goalState for huristic
+        huristic.setGoal((string)(*(searchable->getGoalState())));
         //get the initial state.
         this->openList.add(searchable->getInitialState());
         unordered_set<string> closed;

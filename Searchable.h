@@ -15,6 +15,8 @@ public:
 
     virtual bool isGoalState(State<T> *state) = 0;
 
+    virtual State<T>* getGoalState() = 0;
+
     virtual std::list<State<T> *> getPossibleStates(State<T> *state) = 0;
 };
 

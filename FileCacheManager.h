@@ -7,13 +7,15 @@
 
 #define DEFAULT_CACHE_SIZE 3
 #define TEMP_FILE "file_cache_manager_temp.txt"
-
+#define END_OF_LINE_SYM '$'
+#define SPACE_SYMBOL '@'
 #include "CacheManager.h"
 #include <map>
 #include <fstream>
 #include <list>
 #include <vector>
 #include <limits.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -80,12 +82,22 @@ public:
 
 
 private:
+    string storableLine(const string& str) {
+        string newString = str;
+        std::replace( newString.begin(), newString.end(), '\n', END_OF_LINE_SYM);
+        return newString;
+    }
+    string originalLine(const string& str) {
+        string newString = str;
+        std::replace( newString.begin(), newString.end(), END_OF_LINE_SYM, '\n');
+        return newString;
+    }
     void storeLocaly(string first, string second) {
             if (localCache.size() >= cacheSize &&
                                 localCache.find(first) == localCache.end()) { //cache overflow
                 saveNonPriortized();
             }
-        localCache[first] = second;
+        localCache[originalLine(first)] = originalLine(second);
         updateOrder(first);
     }
     void save() {
@@ -94,7 +106,7 @@ private:
             if (fout.is_open()) {
                 for (auto it = orderToKey.begin() ; it != orderToKey.end(); it++) {
                     string key = it->second;
-                    fout << key << " " << localCache[key] << endl;
+                    fout << storableLine(key) << " " << storableLine(localCache[key]) << endl;
                 }
                 fout.close();
             }
@@ -105,7 +117,7 @@ private:
         std::ofstream fout(filedCachePath);
         if (fout.is_open()) {
             for (auto& data : dataVector)
-                fout << data.first << " " << data.second << endl;
+                fout << storableLine(data.first) << " " << storableLine(data.second) << endl;
             fout.close();
         }
     }
@@ -113,7 +125,7 @@ private:
         std::ofstream fout(filedCachePath, ios::app); //open file as logger
         if (fout.is_open()) {
                 string key = (localCache.begin())->first;
-                fout << key << " " << localCache[key] << endl;
+                fout << storableLine(key) << " " << storableLine(localCache[key]) << endl;
                 eraseLocal(key);
 
             fout.close();
@@ -141,7 +153,8 @@ private:
         list<string> order;
         vector<pair<string, string>> filedData = retrive();
         for (int i = 0; i < cacheSize && !filedData.empty(); i++) {
-            localCache[filedData.back().first] = filedData.back().second;
+            localCache[originalLine(filedData.back().first)]
+                          = originalLine(filedData.back().second);
             order.emplace_front(filedData.back().first);
             filedData.pop_back();
         }

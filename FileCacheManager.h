@@ -7,8 +7,8 @@
 
 #define DEFAULT_CACHE_SIZE 3
 #define TEMP_FILE "file_cache_manager_temp.txt"
-#define END_OF_LINE_SYM '$'
-#define SPACE_SYMBOL '@'
+#define END_OF_LINE_SYM 30
+#define SPACE_SYMBOL 31
 #include "CacheManager.h"
 #include <map>
 #include <fstream>
@@ -44,12 +44,10 @@ public:
     //interface functions:
 
     bool contains(Problem problem) override {
-
         if (localCache.find((string) problem) != localCache.end())
             return true;
         else
             return load((string) problem);
-
     }
 
     Solution request(Problem problem) override {
@@ -84,12 +82,14 @@ public:
 private:
     string storableLine(const string& str) {
         string newString = str;
-        std::replace( newString.begin(), newString.end(), '\n', END_OF_LINE_SYM);
+        std::replace( newString.begin(), newString.end(), '\n', (char)END_OF_LINE_SYM);
+        std::replace( newString.begin(), newString.end(), ' ', (char)SPACE_SYMBOL);
         return newString;
     }
     string originalLine(const string& str) {
         string newString = str;
-        std::replace( newString.begin(), newString.end(), END_OF_LINE_SYM, '\n');
+        std::replace( newString.begin(), newString.end(), (char)END_OF_LINE_SYM, '\n');
+        std::replace( newString.begin(), newString.end(), (char)SPACE_SYMBOL, ' ');
         return newString;
     }
     void storeLocaly(string first, string second) {

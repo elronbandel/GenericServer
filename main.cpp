@@ -9,6 +9,7 @@
 #include "BFS.h"
 #include "DFS.h"
 #include "BestFirstSearch.h"
+#include "AStar.h"
 #include "ParallelServer.h"
 #include "SearchingClientHandler.h"
 #include "FileCacheManager.h"
@@ -29,7 +30,8 @@ int main(int argc, char* argv[]) {
         vector<State<string> *> path;
         string row;
         vector<string> rows;
-        ISearcher<vector<State<string> *>, string> *searcher = new DFS<vector<State<string> *>, string>();
+        EuklidianHuresticator huresticator;
+        ISearcher<vector<State<string> *>, string> *searcher = new AStar<vector<State<string> *>, string,EuklidianHuresticator>(huresticator);
         Solver<Searchable<string>, vector<State<string> *>>* solver =
                  new SearchSolver<Searchable<string>, vector<State<string> *>, string>(searcher);
         CacheManager<string,string>* cacheManager = new FileCacheManager<string,string>("cache.txt");

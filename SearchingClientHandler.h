@@ -80,7 +80,7 @@ public:
                 //if we got a few rows we need to get each of them separate.
                 matrixRow = line.substr(0, endOfRow);
                 rows.push_back(matrixRow);
-                matrixString += matrixRow + "$";
+                matrixString += matrixRow;
                 line = line.substr(endOfRow + 1, line.size() - 1);
             }
         }

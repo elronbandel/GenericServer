@@ -35,8 +35,8 @@ class SearchingClientHandler : public ClientHandler {
         pair<int, int> nextState;
         if (!solution.empty()) {
             for (int i = 1; i < size; i++) {
-                currState = getRowAndCol((string) *solution.at(i - 1));
-                nextState = getRowAndCol((string) *solution.at(i));
+                currState = getRowAndCol((string) *(solution.at(i - 1)));
+                nextState = getRowAndCol((string) *(solution.at(i)));
                 //for every state check what action needed.
                 if (currState.first < nextState.first) {
                     path += "Down";
@@ -74,15 +74,9 @@ public:
                 sin >> helpStr;
                 line += helpStr;
             }
+            rows.push_back(line);
             //concatenate the lines received from stream;
-            //notice that the line might contain another row.
-            while ((endOfRow = line.find("\n")) != -1) {
-                //if we got a few rows we need to get each of them separate.
-                matrixRow = line.substr(0, endOfRow);
-                rows.push_back(matrixRow);
-                matrixString += matrixRow + "$";
-                line = line.substr(endOfRow + 1, line.size() - 1);
-            }
+            matrixString += line + "$";
         }
         //check if the solution exists, if it does, return it to the client.
         if (cacheManager->contains(matrixString)) {

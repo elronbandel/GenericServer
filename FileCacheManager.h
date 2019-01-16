@@ -5,7 +5,7 @@
 #ifndef GSERVER_FILECACHEMANAGER_H
 #define GSERVER_FILECACHEMANAGER_H
 
-#define DEFAULT_CACHE_SIZE 3
+#define DEFAULT_CACHE_SIZE 1000
 #define TEMP_FILE "file_cache_manager_temp.txt"
 #define END_OF_LINE_SYM 30
 #define SPACE_SYMBOL 31

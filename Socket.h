@@ -6,9 +6,19 @@
 #define GSERVER_SOCKET_H
 
 #include <string>
+#include <stdexcept>
+#include <cerrno>
+
 #define FAILED -1
 
 using namespace std;
+
+class timeout_exception : public std::runtime_error
+{
+public:
+    timeout_exception(const char* msg) : std::runtime_error(msg){}
+    timeout_exception(std::string msg) : std::runtime_error(msg){}
+};
 
 class Socket {
     int sock;

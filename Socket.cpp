@@ -73,7 +73,7 @@ Socket Socket::accept() {
 int Socket::read(char *buffer, int buffer_size) {
     bzero(buffer, BUFFER_SIZE);
     ssize_t bytes_readed = ::read(sock, buffer, buffer_size);
-    if ( bytes_readed == FAILED)
+    if (bytes_readed == FAILED)
         throw string("Error: failed reading from socket " + to_string(sock) + ".");
     return (int)bytes_readed;
 }

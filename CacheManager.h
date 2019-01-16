@@ -8,7 +8,7 @@
 template<class Problem, class Solution>
 class CacheManager {
 public:
-    virtual bool isStored(Problem problem) = 0;
+    virtual bool contains(Problem problem) = 0;
     virtual Solution request(Problem problem) = 0;
     virtual void store(Problem problem, Solution solution) = 0;
 };

@@ -37,6 +37,7 @@ public:
                 if (!this->openList.contains(st) && closed.count((string)(*st)) == 0) {
                     //set state as neighbour parent and add the neighbour to open.
                     st->setCameFrom(state);
+                    st->setPathCost(currentPathCost + neighbourCost);
                     this->openList.add(st);
                     //**************need to check this part with michael.********************
                     //else if the current path is better then the previous

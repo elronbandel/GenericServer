@@ -53,11 +53,14 @@ public:
                     State<string> *state = new State<string>(key);
                     if (col == initCol && i == initRow) {
                         initState = state;
+                        state->setPathCost(1);
                     } else if (col == goalCol && i == goalRow) {
                         goalState = state;
+                        state->setPathCost(inf);
+                    }else{
+                        state->setPathCost(inf);
                     }
                     state->setCost(stod(strCost));
-                    state->setPathCost(stod(strCost));
                     col++;
                     matrix.emplace(key, state);
                     strCost = "";

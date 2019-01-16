@@ -104,6 +104,10 @@ public:
         sout.flush();
         cacheManager->store(matrixString, result);
     }
+    ~SearchingClientHandler(){
+        delete cacheManager;
+        delete solver;
+    }
 };
 
 

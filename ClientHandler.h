@@ -12,6 +12,7 @@ using namespace std;
 class ClientHandler {
 public:
     virtual void handle(istream& sin, ostream& sout) = 0;
+    virtual ~ClientHandler(){}
 };
 
 

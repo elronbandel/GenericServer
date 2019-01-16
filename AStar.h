@@ -13,11 +13,16 @@
 class EuklidianHuresticator {
     pair<double, double> goal;
 public:
+    EuklidianHuresticator(){
+    }
     explicit EuklidianHuresticator(const string& goal) {
         this->goal = stringToPair(goal);
     }
     double operator () (const string& point) {
         return distance(stringToPair(point), goal);
+    }
+    void setGoal(const string& goal){
+        this->goal = stringToPair(goal);
     }
 private:
     double distance(pair<double, double> a, pair<double,double> b) {
@@ -85,7 +90,7 @@ public:
                     st->setCameFrom(state);
                     //if the neighbour isnt in open set the new path and add it to open.
                     if (!this->openList.contains(st)) {
-                        st->setPathCost(currentPathCost + neighbourCost + husristic(st));
+                        st->setPathCost(currentPathCost + neighbourCost + this->huristic((string)(*st)));
                         this->openList.add(st);
                     }else{
                         // else adjust its priority

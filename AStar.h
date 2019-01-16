@@ -21,7 +21,7 @@ public:
     double operator () (const string& point) {
         return distance(stringToPair(point), goal);
     }
-    //setter for goal
+    //setter for goal.
     void setGoal(const string& goal){
         this->goal = stringToPair(goal);
     }

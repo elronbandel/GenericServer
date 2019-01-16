@@ -35,20 +35,20 @@ class SearchingClientHandler : public ClientHandler {
         pair<int, int> nextState;
         if (!solution.empty()) {
             //running on states from last state to first
-            for (int i = 1; i < size; i++) {
-                currState = getRowAndCol((string) *(solution.at(i - 1)));
-                nextState = getRowAndCol((string) *(solution.at(i)));
+            for (int i = size-1; i > 0; i--) {
+                currState = getRowAndCol((string) *(solution.at(i)));
+                nextState = getRowAndCol((string) *(solution.at(i-1)));
                 //for every state check what action needed.
                 if (currState.first < nextState.first) {
-                    path += "Up";
-                } else if (currState.first > nextState.first) {
                     path += "Down";
+                } else if (currState.first > nextState.first) {
+                    path += "Up";
                 } else if (currState.second < nextState.second) {
-                    path += "Left";
-                } else if (currState.second > nextState.second) {
                     path += "Right";
+                } else if (currState.second > nextState.second) {
+                    path += "Left";
                 }
-                if (i != size - 1) {
+                if (i != 1) {
                     path += ",";
                 }
             }

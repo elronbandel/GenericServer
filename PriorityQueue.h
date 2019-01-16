@@ -20,7 +20,7 @@ public:
     State<T> *pop() {
         State<T> *top = pq.top();
         pq.pop();
-        container.erase(*(top->getType()));
+        container.erase(top->getType());
         return top;
     }
 
@@ -29,7 +29,7 @@ public:
     }
 
     bool contains(State<T> *state) {
-        return (bool) container.count(*(state->getType()));
+        return (bool) container.count(state->getType());
     }
 
 //    int size() {
@@ -38,10 +38,8 @@ public:
 
     void add(State<T> *state) {
         //create a new state so that we wont change the actual cost of the original state
-        State<T>* newState;
-        *(newState) = *(state);
-        pq.push(newState);
-        container.emplace(*(newState->getType()), newState);
+        pq.push(state);
+        container.emplace(state->getType(), state);
     }
 
     void setPriority(State<T> *state) {

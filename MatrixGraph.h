@@ -51,7 +51,7 @@ public:
 
     virtual std::list<State<T> *> getPossibleStates(State<T> *state) {
         list<State<T> *> states;
-        pair<int, int> rowAndCol = getRowAndCol(*(state->getType()));
+        pair<int, int> rowAndCol = getRowAndCol(state->getType());
         int row = rowAndCol.first, col = rowAndCol.second;
         string key;
         int minus_1 = stoi("-1");

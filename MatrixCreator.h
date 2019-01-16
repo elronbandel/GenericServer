@@ -49,7 +49,7 @@ public:
                     strCost += row[j];
                 } else {
                     key = to_string(i) + "," + to_string(col);
-                    State<string> *state = new State<string>(new string(key));
+                    State<string> *state = new State<string>(key);
                     if (col == initCol && i == initRow) {
                         initState = state;
                     } else if (col == goalCol && i == goalRow) {

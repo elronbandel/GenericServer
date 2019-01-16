@@ -11,15 +11,15 @@
 template<class Solution,class T>
 class BFS : public Searcher<Solution,T> {
     queue<State<T> *> q;
-    unordered_map<string*, State<T> *&> visited;
-    Solution* path;
+    unordered_map<string, State<T> *&> visited;
+    Solution path = Solution();
 public:
-    Solution *search(Searchable<T>* searchable) {
+    Solution search(Searchable<T>* searchable) {
         State<T> *initState = searchable->getInitialState();
         return bfs(initState, searchable);
     }
 
-    Solution *bfs(State<T> *current, Searchable<T>* searchable) {
+    Solution bfs(State<T> *current, Searchable<T>* searchable) {
         q.push(current);
         visited.emplace(current->getType(), current);
         while (!q.empty()) {
@@ -31,8 +31,8 @@ public:
             }
             list<State<T> *> neighbours = searchable->getPossibleStates(current);
             for (State<T> *st : neighbours) {
-                st->setCameFrom(current);
-                if (visited.count((string*)(st)) == 0) {
+                if (visited.count((string)(*st)) == 0) {
+                    st->setCameFrom(current);
                     visited.emplace(st->getType(), st);
                     q.push(st);
                 }

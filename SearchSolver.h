@@ -15,8 +15,8 @@ public:
     SearchSolver(ISearcher<Solution,T>* srchr){
         searcher = srchr;
     }
-    virtual Solution *solve(Problem *p) {
-        Solution *solution;
+    virtual Solution solve(Problem *p) {
+        Solution solution;
         solution = searcher->search(p);
         return solution;
     }

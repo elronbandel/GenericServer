@@ -14,15 +14,15 @@ class BestFirstSearch : public Searcher<Solution,T> {
 public:
     BestFirstSearch() {}
 
-    virtual Solution *search(Searchable<T>* searchable) {
+    virtual Solution search(Searchable<T>* searchable) {
         //get the initial state.
         this->openList.add(searchable->getInitialState());
         unordered_set<string> closed;
-        Solution* path;
+        Solution path;
 
         while (!this->openList.empty()) {
             State<T> *state = this->openList.pop();
-            closed.emplace(*(state->getType()));
+            closed.emplace(state->getType());
             if (searchable->isGoalState(state)) {
                 path = this->backtrace(state);
                 return path;
@@ -55,7 +55,7 @@ public:
             }
         }
         //return nullptr if there is no solution.
-        return nullptr;
+        return path;
     }
 };
 

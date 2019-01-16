@@ -20,10 +20,10 @@ protected:
         return openList.pop();
     }
     //tracing the path from beginning to goal;
-    Solution* backtrace(State<T> *goal) {
-        Solution* path;
+    Solution backtrace(State<T> *goal) {
+        Solution path;
         while (goal != nullptr) {
-            path->push_back(goal);
+            path.push_back(goal);
             goal = goal->getCameFrom();
         }
         return path;
@@ -34,7 +34,7 @@ public:
         NodesEvaluated = 0;
     }
 
-    virtual Solution *search(Searchable<T>* searchable) = 0;
+    virtual Solution search(Searchable<T>* searchable) = 0;
 
     virtual int getNodesEvaluated() {
         return NodesEvaluated;

@@ -10,7 +10,7 @@
 
 template<class T>
 class State {
-    T *t;
+    T t;
     double nodeCost, pathCost;
     State<T> *cameFrom;
 public:
@@ -19,7 +19,7 @@ public:
         cameFrom = nullptr;
     }
 
-    explicit State(T *type) {
+    explicit State(T &type) : t(type) {
         t = type;
         cameFrom = nullptr;
     }
@@ -32,7 +32,7 @@ public:
         return nodeCost;
     }
 
-    T *getType() const {
+    T getType() const {
         return t;
     }
 
@@ -64,7 +64,7 @@ public:
         return pathCost;
     }
     explicit operator std::string() const{
-        return (std::string)(*t);
+        return (std::string)t;
     }
 };
 

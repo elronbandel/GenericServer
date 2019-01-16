@@ -37,6 +37,7 @@ class SearchingClientHandler : public ClientHandler {
             for (int i = 1; i < size; i++) {
                 currState = getRowAndCol((string) solution.at(i - 1));
                 nextState = getRowAndCol((string) solution.at(i));
+                //for every state check what action needed.
                 if (currState.first < nextState.first) {
                     path += "Down";
                 } else if (currState.first > nextState.first) {

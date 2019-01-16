@@ -16,8 +16,12 @@ protected:
     thread serverThread;
 public:
     int open(int port, ClientHandler& handler) override;
+    thread& mainThread()  {
+        return serverThread;
+    }
 private:
     static void startServerThread(SerialServer* server,int port, ClientHandler* handler);
+
 };
 
 

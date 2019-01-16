@@ -14,12 +14,14 @@
 #include "FileCacheManager.h"
 #include <ctime>
 #include <cstdlib>
+#include <thread>
 
 #define SERVER_TIMOUT 30
 
 using std::cout;
 using std::string;
 using std::rand;
+
 
 int main(int argc, char* argv[]) {
     if (argc == 2) {
@@ -34,7 +36,7 @@ int main(int argc, char* argv[]) {
         SearchingClientHandler<Searchable<string>, vector<State<string> *>> handler(solver, cacheManager);
         ParallelServer server(SERVER_TIMOUT); //start server with timeout of 30
         server.open(port, handler);
-        sleep(60);
+        server.mainThread().join();
     }
 
     return 0;

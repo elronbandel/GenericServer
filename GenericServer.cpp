@@ -38,11 +38,13 @@ void GenericServer::notifyClientAccepted() {
 void GenericServer::serveOneClient(ClientHandler& handler) {
     if (runing) {
         Socket clientSocket = server.accept();
-        notifyClientAccepted();
-        SocketStream client(clientSocket);
-        handler.handle(client, client);
-        clientSocket.close();
-        clientsCounter--;
+        if (!clientSocket.wouldBlock()) {
+            notifyClientAccepted();
+            SocketStream client(clientSocket);
+            handler.handle(client, client);
+            clientSocket.close();
+            clientsCounter--;
+        }
     }
 }
 

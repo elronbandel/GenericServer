@@ -14,8 +14,6 @@ class Server {
 public:
     virtual int open(int port, ClientHandler& cl) = 0;
     virtual int stop() = 0;
-
 };
-
 
 #endif //UNTITLED6_SERVER_H

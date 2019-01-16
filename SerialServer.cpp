@@ -11,6 +11,6 @@ int SerialServer::open(int port, ClientHandler& handler) {
 }
 void SerialServer::startServerThread(SerialServer* server, int port, ClientHandler* handler) {
     server->openServer(port, *handler);
-    terminate(); //close the thread
+    //terminate(); //close the thread
 }
 
